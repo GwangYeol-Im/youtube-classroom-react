@@ -1,0 +1,9 @@
+{
+  "name": "project-starter-template",
+  "version": "0.0.1",
+  "private": "true",
+  "description": "Boilerplate for start personal project.",
+  "repository": "https://github.com/GwangYeol-Im/project-starter-template.git",
+  "author": "imgwang-yeol <mkitigy@gmail.com>",
+  "license": "MIT"
+}
