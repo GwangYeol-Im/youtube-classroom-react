@@ -1,0 +1,10 @@
+* {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+  color: #191f28;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
