@@ -6,7 +6,9 @@
   "repository": "https://github.com/GwangYeol-Im/project-starter-template.git",
   "author": "imgwang-yeol <mkitigy@gmail.com>",
   "license": "MIT",
-  "sideEffects": false,
+  "sideEffects": [
+    "css"
+  ],
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"

@@ -10,6 +10,27 @@ const App = () => (
     <Global
       styles={css`
         ${normalize}
+
+        * {
+          font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+          color: #191f28;
+          padding: 0;
+          margin: 0;
+        }
+
+        html,
+        body,
+        #root {
+          height: 100%;
+        }
+
+        li {
+          list-style: none;
+        }
+
+        button {
+          cursor: pointer;
+        }
       `}
     />
     <Layout>
