@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
+import { ModalContext } from 'providers/ModalProvider';
 import Youtube from '../assets/images/youtube.png';
 import styled from '@emotion/styled';
 
+type WatchState = 'toWatch' | 'watched';
+
 const YoutubeClassroom = () => {
-  const { watchMode, setWatchMode } = useYoutubeClassroom();
+  const { watchMode, setWatchMode, openModal } = useYoutubeClassroom();
 
   return (
     <Container>
@@ -21,19 +24,20 @@ const YoutubeClassroom = () => {
             시청한 동영상
           </button>
         </VideoFilter>
-        <button type="button">동영상 검색</button>
+        <button type="button" onClick={() => openModal('modal')}>
+          동영상 검색
+        </button>
       </Menu>
       <VideoList>{watchMode}</VideoList>
     </Container>
   );
 };
 
-type WatchState = 'toWatch' | 'watched';
-
 const useYoutubeClassroom = () => {
   const [watchMode, setWatchMode] = useState<WatchState>('toWatch');
+  const { openModal } = useContext(ModalContext);
 
-  return { watchMode, setWatchMode };
+  return { watchMode, setWatchMode, openModal };
 };
 
 const Container = styled.main`
@@ -65,12 +69,5 @@ const VideoFilter = styled.div`
 `;
 
 const VideoList = styled.ul``;
-
-/**
- * Title
- * VideoFilter
- * VideoSearch
- * SavedVideoList (watched: bool)
- */
 
 export default YoutubeClassroom;
