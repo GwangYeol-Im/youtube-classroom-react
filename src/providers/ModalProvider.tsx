@@ -4,30 +4,6 @@ import colors from 'constants/color';
 import styled from '@emotion/styled';
 
 type Modal = React.ReactNode | null;
-
-const useModal = () => {
-  const [modal, setModal] = useState(false);
-  const [modalContent, setModalContent] = useState<Modal>(null);
-
-  const openModal = (content: Modal) => {
-    setModal(true);
-    setModalContent(content);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    setModal(false);
-    document.body.style.overflow = 'unset';
-  };
-
-  return {
-    modal,
-    openModal,
-    closeModal,
-    modalContent,
-  };
-};
-
 type ModalContext = ReturnType<typeof useModal>;
 
 export const ModalContext = createContext<ModalContext>({} as ModalContext);
@@ -67,6 +43,29 @@ const ModalTemplate = () => {
       </Dialog>
     </>
   );
+};
+
+const useModal = () => {
+  const [modal, setModal] = useState(false);
+  const [modalContent, setModalContent] = useState<Modal>(null);
+
+  const openModal = (content: Modal) => {
+    setModal(true);
+    setModalContent(content);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModal(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  return {
+    modal,
+    openModal,
+    closeModal,
+    modalContent,
+  };
 };
 
 const Dimmer = styled.div`
