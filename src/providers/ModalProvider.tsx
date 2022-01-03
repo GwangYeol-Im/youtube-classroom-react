@@ -12,10 +12,12 @@ const useModal = () => {
   const openModal = (content: Modal) => {
     setModal(true);
     setModalContent(content);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setModal(false);
+    document.body.style.overflow = 'unset';
   };
 
   return {
