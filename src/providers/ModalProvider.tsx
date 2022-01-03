@@ -79,7 +79,7 @@ const Dimmer = styled.div`
 
 const Dialog = styled.div`
   position: fixed;
-  padding: 1rem;
+  padding: 0.5rem;
   top: 50%;
   left: 50%;
   border-radius: 0.625rem;
@@ -89,4 +89,5 @@ const Dialog = styled.div`
 
 const Header = styled.div`
   text-align: right;
+  margin: 1rem;
 `;

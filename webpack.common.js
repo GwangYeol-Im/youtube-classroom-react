@@ -50,6 +50,8 @@ module.exports = {
       containers: path.resolve(__dirname, 'src/containers'),
       providers: path.resolve(__dirname, 'src/providers'),
       remotes: path.resolve(__dirname, 'src/remotes'),
+      hooks: path.resolve(__dirname, 'src/hooks'),
+      utils: path.resolve(__dirname, 'src/utils'),
     },
   },
 };

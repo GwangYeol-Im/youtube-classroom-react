@@ -38,6 +38,10 @@ const globalStyles = css`
   button {
     cursor: pointer;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export default App;

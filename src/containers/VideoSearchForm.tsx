@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
 
+import SearchedVideo from 'components/videos/SearchedVideo';
+import colors from 'constants/color';
 import { fetchYTBVideos } from 'remotes/video';
+import { generateID } from 'hooks/useId';
 import styled from '@emotion/styled';
 
 const VideoSearchForm = () => {
   const { keyword, setKeyword, videos, search } = useVideoSearchForm();
+
+  const SearchedVideos = () => {
+    if (!videos.length) return null;
+
+    return (
+      <VideoList>
+        {videos.map((video) => (
+          <SearchedVideo key={video.id.videoId ?? generateID()} video={video} />
+        ))}
+      </VideoList>
+    );
+  };
 
   return (
     <Container>
@@ -16,7 +31,7 @@ const VideoSearchForm = () => {
         />
         <button>검색</button>
       </SearchForm>
-      <VideoList>{videos.map((items) => {})}</VideoList>
+      <SearchedVideos />
     </Container>
   );
 };
@@ -40,11 +55,33 @@ const useVideoSearchForm = () => {
 };
 
 const Container = styled.section`
-  width: 600px;
+  background-color: ${colors.grey50};
+  width: 800px;
+  height: 70vh;
+  overflow-y: scroll;
+  text-align: center;
 `;
 
-const SearchForm = styled.form``;
+const SearchForm = styled.form`
+  background-color: ${colors.white};
+  border-top: 1px solid ${colors.grey200};
+  border-bottom: 1px solid ${colors.grey200};
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
 
-const VideoList = styled.ul``;
+  & > input {
+    margin-right: 1rem;
+  }
+`;
+
+const VideoList = styled.div`
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 2.5rem;
+  column-gap: 1rem;
+  justify-items: center;
+`;
 
 export default VideoSearchForm;

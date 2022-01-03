@@ -4,8 +4,6 @@ interface SearchVideo {
   id: {
     kind: string;
     videoId: string;
-    channelId: string;
-    playlistId: string;
   };
   snippet: {
     publishedAt: string;
@@ -13,7 +11,7 @@ interface SearchVideo {
     title: string;
     description: string;
     thumbnails: {
-      key: {
+      [key: string]: {
         url: string;
         width: number;
         height: number;
