@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -9,6 +10,7 @@ module.exports = {
     clean: true,
   },
   plugins: [
+    new Dotenv(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
@@ -47,6 +49,7 @@ module.exports = {
       constants: path.resolve(__dirname, 'src/constants'),
       containers: path.resolve(__dirname, 'src/containers'),
       providers: path.resolve(__dirname, 'src/providers'),
+      remotes: path.resolve(__dirname, 'src/remotes'),
     },
   },
 };

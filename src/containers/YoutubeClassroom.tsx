@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { ModalContext } from 'providers/ModalProvider';
+import VideoSearchForm from './VideoSearchForm';
 import Youtube from '../assets/images/youtube.png';
 import styled from '@emotion/styled';
 
@@ -24,7 +25,7 @@ const YoutubeClassroom = () => {
             시청한 동영상
           </button>
         </VideoFilter>
-        <button type="button" onClick={() => openModal('modal')}>
+        <button type="button" onClick={() => openModal(<VideoSearchForm />)}>
           동영상 검색
         </button>
       </Menu>
