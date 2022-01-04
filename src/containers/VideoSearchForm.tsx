@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 
 import AsyncBoundary from 'components/boundary/AsyncBoundary';
+import ErrorFallback from 'components/ErrorFallback';
 import SearchedVideo from 'components/videos/SearchedVideo';
 import VideoSkeleton from 'components/videos/VideoSkeleton';
 import colors from 'constants/color';
@@ -26,9 +27,7 @@ const VideoSearchForm = () => {
       </SearchForm>
       <AsyncBoundary
         pendingFallback={<VideoSkeletons />}
-        rejectedFallback={({ error }: { error: Error }) => (
-          <div>{error.message}</div>
-        )}
+        rejectedFallback={({ error }) => <ErrorFallback error={error} />}
       >
         <SearchedVideos query={query} />
       </AsyncBoundary>
