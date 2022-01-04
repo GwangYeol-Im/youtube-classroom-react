@@ -1,4 +1,5 @@
 import { Global, css } from '@emotion/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Layout from 'components/Layout';
 import { ModalProvider } from 'providers/ModalProvider';
@@ -6,11 +7,15 @@ import React from 'react';
 import YoutubeClassroom from 'containers/YoutubeClassroom';
 import normalize from 'emotion-normalize';
 
+const queryClient = new QueryClient();
+
 const App = () => (
   <ModalProvider>
     <Global styles={globalStyles} />
     <Layout>
-      <YoutubeClassroom />
+      <QueryClientProvider client={queryClient}>
+        <YoutubeClassroom />
+      </QueryClientProvider>
     </Layout>
   </ModalProvider>
 );
