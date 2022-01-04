@@ -1,25 +1,18 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
+import AsyncBoundary from 'components/boundary/AsyncBoundary';
 import SearchedVideo from 'components/videos/SearchedVideo';
+import VideoSkeleton from 'components/videos/VideoSkeleton';
 import colors from 'constants/color';
 import { fetchYTBVideos } from 'remotes/video';
 import { generateID } from 'hooks/useId';
 import styled from '@emotion/styled';
+import { useQuery } from 'react-query';
+
+const FETCH_VIDEO_COUNT = 10;
 
 const VideoSearchForm = () => {
-  const { keyword, setKeyword, videos, search } = useVideoSearchForm();
-
-  const SearchedVideos = () => {
-    if (!videos.length) return null;
-
-    return (
-      <VideoList>
-        {videos.map((video) => (
-          <SearchedVideo key={video.id.videoId ?? generateID()} video={video} />
-        ))}
-      </VideoList>
-    );
-  };
+  const { keyword, setKeyword, query, search } = useVideoSearchForm();
 
   return (
     <Container>
@@ -31,27 +24,53 @@ const VideoSearchForm = () => {
         />
         <button>검색</button>
       </SearchForm>
-      <SearchedVideos />
+      <AsyncBoundary
+        pendingFallback={<VideoSkeletons />}
+        rejectedFallback={({ error }: { error: Error }) => (
+          <div>{error.message}</div>
+        )}
+      >
+        <SearchedVideos query={query} />
+      </AsyncBoundary>
     </Container>
   );
 };
 
+const SearchedVideos = ({ query }: { query: string }) => {
+  if (query === '') return null;
+
+  const { data } = useQuery(['videos', query], () =>
+    fetchYTBVideos(query, FETCH_VIDEO_COUNT)
+  );
+
+  return (
+    <VideoList>
+      {data?.items.map((video) => (
+        <SearchedVideo key={video.id.videoId ?? generateID()} video={video} />
+      ))}
+    </VideoList>
+  );
+};
+
+const VideoSkeletons = () => (
+  <VideoList>
+    {new Array(FETCH_VIDEO_COUNT).fill(0).map(() => (
+      <VideoSkeleton key={generateID()} />
+    ))}
+  </VideoList>
+);
+
 const useVideoSearchForm = () => {
   const [keyword, setKeyword] = useState('');
-  const [videos, setVideos] = useState<SearchVideo[]>([]);
+  const [query, setQuery] = useState('');
 
-  const search = async (e: React.FormEvent) => {
+  const search = (e: FormEvent) => {
     e.preventDefault();
-    if (keyword === '') return;
 
-    try {
-      const searchedVideos = await fetchYTBVideos(keyword);
-
-      setVideos(searchedVideos.items);
-    } catch (error) {}
+    setQuery(keyword);
   };
 
-  return { keyword, setKeyword, videos, search };
+  return { keyword, setKeyword, query, search };
 };
 
 const Container = styled.section`

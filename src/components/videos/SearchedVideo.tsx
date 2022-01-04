@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+
 import { decode } from 'utils/code';
 import styled from '@emotion/styled';
 
@@ -52,4 +53,4 @@ const ChannelTitle = styled.div`
   font-size: 0.8rem;
 `;
 
-export default SearchedVideo;
+export default memo(SearchedVideo);
