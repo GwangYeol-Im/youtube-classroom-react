@@ -7,17 +7,24 @@ import React from 'react';
 import YoutubeClassroom from 'containers/YoutubeClassroom';
 import normalize from 'emotion-normalize';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      useErrorBoundary: true,
+    },
+  },
+});
 
 const App = () => (
-  <ModalProvider>
-    <Global styles={globalStyles} />
-    <Layout>
-      <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <ModalProvider>
+      <Global styles={globalStyles} />
+      <Layout>
         <YoutubeClassroom />
-      </QueryClientProvider>
-    </Layout>
-  </ModalProvider>
+      </Layout>
+    </ModalProvider>
+  </QueryClientProvider>
 );
 
 const globalStyles = css`
