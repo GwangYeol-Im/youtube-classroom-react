@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 
 import AsyncBoundary from 'components/boundary/AsyncBoundary';
 import ErrorFallback from 'components/ErrorFallback';
+import NotFound from 'assets/images/not-found.png';
 import SearchedVideo from 'components/videos/SearchedVideo';
 import VideoSkeleton from 'components/videos/VideoSkeleton';
 import colors from 'constants/color';
@@ -41,10 +42,20 @@ const SearchedVideos = ({ query }: { query: string }) => {
   const { data } = useQuery(['videos', query], () =>
     fetchYTBVideos(query, FETCH_VIDEO_COUNT)
   );
+  const videos = data!.items;
+
+  if (videos.length === 0) {
+    return (
+      <NoSearchResult>
+        <img src={NotFound}></img>
+        <div>검색 결과가 없습니다.</div>
+      </NoSearchResult>
+    );
+  }
 
   return (
     <VideoList>
-      {data?.items.map((video) => (
+      {videos.map((video) => (
         <SearchedVideo key={video.id.videoId ?? generateID()} video={video} />
       ))}
     </VideoList>
@@ -100,6 +111,16 @@ const VideoList = styled.div`
   row-gap: 2.5rem;
   column-gap: 1rem;
   justify-items: center;
+`;
+
+const NoSearchResult = styled.div`
+  width: 320px;
+  margin: 0 auto;
+  margin-top: 3rem;
+
+  & > img {
+    width: 100%;
+  }
 `;
 
 export default VideoSearchForm;

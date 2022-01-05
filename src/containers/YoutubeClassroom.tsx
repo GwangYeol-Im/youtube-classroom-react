@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { ModalContext } from 'providers/ModalProvider';
 import VideoSearchForm from './VideoSearchForm';
-import Youtube from '../assets/images/youtube.png';
+import Youtube from 'assets/images/youtube.png';
 import styled from '@emotion/styled';
 
 type WatchState = 'toWatch' | 'watched';
