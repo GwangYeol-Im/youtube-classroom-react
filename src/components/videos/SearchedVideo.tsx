@@ -3,8 +3,6 @@ import React, { memo } from 'react';
 import { decode } from 'utils/code';
 import styled from '@emotion/styled';
 
-const MAX_TITLE_LENGTH = 20;
-
 interface Props {
   video: SearchVideo;
 }
@@ -19,7 +17,7 @@ const SearchedVideo = ({ video }: Props) => {
           <Thumbnail src={snippet.thumbnails.medium.url} alt={snippet.title} />
         </ImageWrapper>
         <Detail>
-          <Title>{decode(snippet.title.slice(0, MAX_TITLE_LENGTH))}</Title>
+          <Title>{decode(snippet.title)}</Title>
           <ChannelTitle>{snippet.channelTitle}</ChannelTitle>
         </Detail>
       </Container>
@@ -47,6 +45,9 @@ const Detail = styled.div`
 
 const Title = styled.div`
   margin-bottom: 0.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const ChannelTitle = styled.div`

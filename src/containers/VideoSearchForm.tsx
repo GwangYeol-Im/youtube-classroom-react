@@ -76,6 +76,7 @@ const useVideoSearchForm = () => {
 
   const search = (e: FormEvent) => {
     e.preventDefault();
+    if (keyword.replace(/\s/g, '') === '') return;
 
     setQuery(keyword);
   };
